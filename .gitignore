@@ -4,7 +4,6 @@ config.h
 config.status
 libtool
 stamp-h1
-m4
 src/.deps
 src/.libs
 tests/.deps
