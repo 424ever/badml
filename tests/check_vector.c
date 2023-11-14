@@ -53,7 +53,6 @@ START_TEST(test_alloc_fail)
 	vec_fail = bml_vector_alloc(ULONG_MAX);
 	ck_assert_ptr_null(vec_fail);
 	ck_assert_int_eq(errcount, 1);
-	mark_point();
 	bml_vector_free(vec_fail);
 }
 END_TEST
@@ -189,7 +188,7 @@ START_TEST(test_print)
 	buflen = 0;
 	f      = open_memstream(&buf, &buflen);
 	ret    = bml_vector_print(f, vec, "a%.1f");
-	// ck_assert_int_eq(ret, strlen(exp));
+	ck_assert_int_eq(ret, strlen(exp));
 	ck_assert_int_eq(fflush(f), 0);
 	ck_assert_str_eq(buf, exp);
 	ck_assert_int_eq(fclose(f), 0);
@@ -288,35 +287,45 @@ END_TEST
 Suite *vector_suite(void)
 {
 	Suite *s;
-	TCase *tc_core;
+	TCase *tc_access;
+	TCase *tc_create;
+	TCase *tc_init;
+	TCase *tc_io;
 
 	s = suite_create("vector");
 
-	tc_core = tcase_create("core");
-
-	tcase_add_checked_fixture(tc_core, &setup, NULL);
-
-	suite_add_tcase(s, tc_core);
-	tcase_add_test(tc_core, test_alloc_fail);
-	tcase_add_test(tc_core, test_size);
-	tcase_add_test(tc_core, test_get);
-	tcase_add_test(tc_core, test_get_oob);
-	tcase_add_test(tc_core, test_init_vals);
-	tcase_add_test(tc_core, test_set);
-	tcase_add_test(tc_core, test_set_oob);
-	tcase_add_test(tc_core, test_const_ptr);
-	tcase_add_test(tc_core, test_const_ptr_oob);
-	tcase_add_test(tc_core, test_ptr);
-	tcase_add_test(tc_core, test_ptr_oob);
-	tcase_add_test(tc_core, test_set_all);
-	tcase_add_test(tc_core, test_set_zero);
-	tcase_add_test(tc_core, test_set_basis);
-	tcase_add_test(tc_core, test_print);
-	tcase_add_test(tc_core, test_alloc_copy);
-	tcase_add_test(tc_core, test_from_array);
-	tcase_add_test(tc_core, test_from_array_copy);
-	tcase_add_test(tc_core, test_copy);
-	tcase_add_test(tc_core, test_copy_fail);
+	tc_create = tcase_create("create");
+	tc_access = tcase_create("access");
+	tc_init	  = tcase_create("init");
+	tc_io	  = tcase_create("io");
+	tcase_add_checked_fixture(tc_access, &setup, NULL);
+	tcase_add_checked_fixture(tc_create, &setup, NULL);
+	tcase_add_checked_fixture(tc_init, &setup, NULL);
+	tcase_add_checked_fixture(tc_io, &setup, NULL);
+	suite_add_tcase(s, tc_access);
+	suite_add_tcase(s, tc_create);
+	suite_add_tcase(s, tc_init);
+	suite_add_tcase(s, tc_io);
+	tcase_add_test(tc_access, test_const_ptr);
+	tcase_add_test(tc_access, test_const_ptr_oob);
+	tcase_add_test(tc_access, test_get);
+	tcase_add_test(tc_access, test_get_oob);
+	tcase_add_test(tc_access, test_ptr);
+	tcase_add_test(tc_access, test_ptr_oob);
+	tcase_add_test(tc_access, test_set);
+	tcase_add_test(tc_access, test_set_oob);
+	tcase_add_test(tc_access, test_size);
+	tcase_add_test(tc_create, test_alloc_copy);
+	tcase_add_test(tc_create, test_alloc_fail);
+	tcase_add_test(tc_create, test_from_array);
+	tcase_add_test(tc_create, test_from_array_copy);
+	tcase_add_test(tc_create, test_init_vals);
+	tcase_add_test(tc_init, test_copy);
+	tcase_add_test(tc_init, test_copy_fail);
+	tcase_add_test(tc_init, test_set_all);
+	tcase_add_test(tc_init, test_set_basis);
+	tcase_add_test(tc_init, test_set_zero);
+	tcase_add_test(tc_io, test_print);
 
 	return s;
 }
