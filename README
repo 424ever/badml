@@ -1,0 +1,17 @@
+badml
+===--
+
+The Bad Matrix Library - an unopimized library for Vectors and Matrices with an
+API similar to GSL.
+
+Building
+--------
+
+ $ ./configure
+ $ make
+
+Installing
+----------
+
+ $ make install
+
