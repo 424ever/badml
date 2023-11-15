@@ -4,6 +4,7 @@ AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
+AC_LANG([C])
 
 AC_PROG_CXX
 AC_PROG_AWK
@@ -18,10 +19,11 @@ AS_IF([test "x$CLANG_TIDY" = xtrue],
       [AC_MSG_WARN([clang-tidy not found in PATH])])
 PKG_CHECK_MODULES([CHECK], [check >= 0.15.2])
 
+AC_SUBST([AM_CFLAGS], ["-Wall -Wextra -Werror"])
 AC_TYPE_SIZE_T
 AC_CHECK_FUNCS([strerror])
 
-AM_INIT_AUTOMAKE([foreign -Wall -Werror])
+AM_INIT_AUTOMAKE([foreign subdir-objects])
 AM_PROG_AR
 
 LT_INIT
@@ -29,4 +31,6 @@ LT_INIT
 AC_CONFIG_FILES([Makefile
                  src/Makefile
                  tests/Makefile])
+AX_VALGRIND_CHECK
+AX_CODE_COVERAGE
 AC_OUTPUT

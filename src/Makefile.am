@@ -1,3 +1,5 @@
+AM_CFLAGS = @AM_CFLAGS@
+
 lib_LTLIBRARIES = libbadml.la
 
 libbadml_la_SOURCES = bml_alloc.c             \

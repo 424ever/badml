@@ -196,6 +196,22 @@ START_TEST(test_print)
 }
 END_TEST
 
+START_TEST(test_print_fail)
+{
+	char  buf[32]; /* NOLINT */
+	FILE *f;
+	int   ret;
+
+	fill_vec();
+	f = fmemopen(buf, 32, "r"); /* NOLINT */
+	mark_point();
+	ret = bml_vector_print(f, vec, "a%.1f");
+	ck_assert_int_eq(ret, -1);
+	ck_assert_int_eq(errcount, 1);
+	(void) fclose(f);
+}
+END_TEST
+
 START_TEST(test_alloc_copy)
 {
 	size_t		   i;
@@ -281,6 +297,7 @@ START_TEST(test_copy_fail)
 	copy = bml_vector_alloc(test_vec_size + 1);
 	bml_vector_copy(copy, vec);
 	ck_assert_int_eq(errcount, 1);
+	bml_vector_free(copy);
 }
 END_TEST
 
@@ -329,6 +346,7 @@ Suite *vector_suite(void)
 	tcase_add_test(tc_init, test_set_basis);
 	tcase_add_test(tc_init, test_set_zero);
 	tcase_add_test(tc_io, test_print);
+	tcase_add_test(tc_io, test_print_fail);
 
 	return s;
 }

@@ -15,12 +15,6 @@ int bml_vec_bounds_valid(struct bml_vector *vec, size_t i, const char *fn)
 	return 1;
 }
 
-void bml_vec_copy_from_non_overlapping_buffer(struct bml_vector *vec,
-					      const double *buf, size_t n)
-{
-	memcpy(vec->buf, buf, n * sizeof(*buf)); /* NOLINT */
-}
-
 struct bml_vector *bml_vec_alloc_with_error(const char *fn, size_t n)
 {
 	struct bml_vector *vec;
@@ -66,7 +60,7 @@ struct bml_vector *bml_vec_alloc_from_backing_copy(const char	*fn,
 	vec = bml_vec_alloc_with_error(fn, n);
 	if (!vec)
 		return NULL;
-	bml_vec_copy_from_non_overlapping_buffer(vec, back, n);
+	memcpy(vec->buf, back, n * sizeof(*back)); /* NOLINT */
 
 	return vec;
 }
