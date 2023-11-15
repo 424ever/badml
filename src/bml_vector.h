@@ -28,6 +28,9 @@ void bml_vector_set_zero(struct bml_vector *);
 void bml_vector_set_basis(struct bml_vector *, size_t i);
 void bml_vector_copy(struct bml_vector *to, struct bml_vector *from);
 
+/* math */
+double bml_vector_dot_product(struct bml_vector *, struct bml_vector *);
+
 /* io */
 int bml_vector_print(FILE *, struct bml_vector *, const char *format);
 

@@ -301,6 +301,43 @@ START_TEST(test_copy_fail)
 }
 END_TEST
 
+START_TEST(test_dot_product)
+{
+	double		   arr1[] = {1.0, 3.0, 5.0}; /* NOLINT */
+	double		   arr2[] = {2.0, 4.0, 6.0}; /* NOLINT */
+	struct bml_vector *vec1;
+	struct bml_vector *vec2;
+
+	vec1 = bml_vector_from_array(arr1, 3);
+	vec2 = bml_vector_from_array(arr2, 3);
+
+	ck_assert_double_eq(bml_vector_dot_product(vec1, vec2),
+			    44.0); /* NOLINT */
+	ck_assert_int_eq(errcount, 0);
+
+	bml_vector_free(vec1);
+	bml_vector_free(vec2);
+}
+END_TEST
+
+START_TEST(test_dot_product_fail)
+{
+	double		   arr1[] = {1.0, 3.0, 5.0};	  /* NOLINT */
+	double		   arr2[] = {2.0, 4.0, 6.0, 8.0}; /* NOLINT */
+	struct bml_vector *vec1;
+	struct bml_vector *vec2;
+
+	vec1 = bml_vector_from_array(arr1, 3);
+	vec2 = bml_vector_from_array(arr2, 4);
+
+	ck_assert_double_nan(bml_vector_dot_product(vec1, vec2));
+	ck_assert_int_eq(errcount, 1);
+
+	bml_vector_free(vec1);
+	bml_vector_free(vec2);
+}
+END_TEST
+
 Suite *vector_suite(void)
 {
 	Suite *s;
@@ -308,6 +345,7 @@ Suite *vector_suite(void)
 	TCase *tc_create;
 	TCase *tc_init;
 	TCase *tc_io;
+	TCase *tc_math;
 
 	s = suite_create("vector");
 
@@ -315,16 +353,19 @@ Suite *vector_suite(void)
 	tc_access = tcase_create("access");
 	tc_init	  = tcase_create("init");
 	tc_io	  = tcase_create("io");
+	tc_math	  = tcase_create("math");
 
 	tcase_add_checked_fixture(tc_access, &setup, NULL);
 	tcase_add_checked_fixture(tc_create, &setup, NULL);
 	tcase_add_checked_fixture(tc_init, &setup, NULL);
 	tcase_add_checked_fixture(tc_io, &setup, NULL);
+	tcase_add_checked_fixture(tc_math, &setup, NULL);
 
 	suite_add_tcase(s, tc_access);
 	suite_add_tcase(s, tc_create);
 	suite_add_tcase(s, tc_init);
 	suite_add_tcase(s, tc_io);
+	suite_add_tcase(s, tc_math);
 
 	tcase_add_test(tc_access, test_const_ptr);
 	tcase_add_test(tc_access, test_const_ptr_oob);
@@ -347,6 +388,8 @@ Suite *vector_suite(void)
 	tcase_add_test(tc_init, test_set_zero);
 	tcase_add_test(tc_io, test_print);
 	tcase_add_test(tc_io, test_print_fail);
+	tcase_add_test(tc_math, test_dot_product);
+	tcase_add_test(tc_math, test_dot_product_fail);
 
 	return s;
 }

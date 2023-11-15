@@ -12,6 +12,7 @@ libbadml_la_SOURCES = bml_alloc.c             \
 		      bml_vector_destroy.c    \
 		      bml_vector_initialize.c \
 		      bml_vector_io.c         \
+		      bml_vector_math.c       \
 		      bml_vector_util.c       \
 		      bml_vector.h            \
 		      bml_vector_int.h
