@@ -15,3 +15,16 @@ Installing
 
  $ make install
 
+Running Tests
+-------------
+
+To run the test suite
+ $ make check
+
+To run the test suite with valgrid
+ $ make check-valgrid
+
+To tun the test suite and show code coverage
+ $ ./configure --enable-code-coverage
+ $ make check-code-coverage
+
