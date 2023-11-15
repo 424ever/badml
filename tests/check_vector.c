@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../src/bml_error.h"
-#include "../src/bml_vector.h"
+#include "bml_error.h"
+#include "bml_vector.h"
 
 static const double	  test_val_1	= 42.0;
 static const double	  test_val_2	= 21.0;
@@ -298,14 +298,17 @@ Suite *vector_suite(void)
 	tc_access = tcase_create("access");
 	tc_init	  = tcase_create("init");
 	tc_io	  = tcase_create("io");
+
 	tcase_add_checked_fixture(tc_access, &setup, NULL);
 	tcase_add_checked_fixture(tc_create, &setup, NULL);
 	tcase_add_checked_fixture(tc_init, &setup, NULL);
 	tcase_add_checked_fixture(tc_io, &setup, NULL);
+
 	suite_add_tcase(s, tc_access);
 	suite_add_tcase(s, tc_create);
 	suite_add_tcase(s, tc_init);
 	suite_add_tcase(s, tc_io);
+
 	tcase_add_test(tc_access, test_const_ptr);
 	tcase_add_test(tc_access, test_const_ptr_oob);
 	tcase_add_test(tc_access, test_get);

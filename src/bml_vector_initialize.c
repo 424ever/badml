@@ -1,8 +1,8 @@
 #include <stdlib.h>
 
+#include "bml_error_int.h"
+#include "bml_vector.h"
 #include "bml_vector_int.h"
-#include "src/bml_error_int.h"
-#include "src/bml_vector.h"
 
 void bml_vector_set_all(struct bml_vector *vec, double d)
 {

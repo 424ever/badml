@@ -2,8 +2,8 @@
 #include <signal.h>
 #include <stdlib.h>
 
-#include "../src/bml_error.h"
-#include "../src/bml_error_int.h"
+#include "bml_error.h"
+#include "bml_error_int.h"
 
 #define TEST_REASON "test-reason"
 
