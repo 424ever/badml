@@ -39,3 +39,6 @@ tests/check_vector.log
 tests/check_vector.trs
 tests/test-suite*.log
 tests/vgcore.*
+src/libbadml.la
+autoscan.log
+configure.scan
