@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "bml_error.h"
-#include "bml_error_int.h"
+#include "error.h"
 
 static bml_err_handler_t *current_handler = &bml_error_default_handler;
 

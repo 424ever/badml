@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 #include "bml_error.h"
-#include "bml_error_int.h"
+#include "error.h"
 
 #define TEST_REASON "test-reason"
 

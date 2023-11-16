@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "bml_alloc.h"
-#include "bml_error_int.h"
-#include "bml_vector_int.h"
+#include "alloc.h"
+#include "error.h"
+#include "vector.h"
 
 int bml_vec_bounds_valid(struct bml_vector *vec, size_t i, const char *fn)
 {

@@ -1,6 +1,6 @@
 #include <math.h>
 
-#include "bml_vector_int.h"
+#include "vector.h"
 
 size_t bml_vector_size(struct bml_vector *vec)
 {

@@ -1,9 +1,9 @@
 #include <math.h>
 #include <stddef.h>
 
-#include "bml_error_int.h"
 #include "bml_vector.h"
-#include "bml_vector_int.h"
+#include "error.h"
+#include "vector.h"
 
 double bml_vector_dot_product(struct bml_vector *a, struct bml_vector *b)
 {

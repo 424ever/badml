@@ -1,6 +1,6 @@
-#include "bml_alloc.h"
-#include "bml_error_int.h"
-#include "bml_vector_int.h"
+#include "alloc.h"
+#include "error.h"
+#include "vector.h"
 
 struct bml_vector *bml_vector_alloc(size_t n)
 {

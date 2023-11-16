@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "bml_error_int.h"
-#include "bml_vector_int.h"
+#include "error.h"
+#include "vector.h"
 
 int bml_vector_print(FILE *f, struct bml_vector *vec, const char *format)
 {
