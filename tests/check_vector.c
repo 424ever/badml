@@ -355,11 +355,11 @@ Suite *vector_suite(void)
 	tc_io	  = tcase_create("io");
 	tc_math	  = tcase_create("math");
 
-	tcase_add_checked_fixture(tc_access, &setup, NULL);
-	tcase_add_checked_fixture(tc_create, &setup, NULL);
-	tcase_add_checked_fixture(tc_init, &setup, NULL);
-	tcase_add_checked_fixture(tc_io, &setup, NULL);
-	tcase_add_checked_fixture(tc_math, &setup, NULL);
+	tcase_add_checked_fixture(tc_access, &setup, &teardown);
+	tcase_add_checked_fixture(tc_create, &setup, &teardown);
+	tcase_add_checked_fixture(tc_init, &setup, &teardown);
+	tcase_add_checked_fixture(tc_io, &setup, &teardown);
+	tcase_add_checked_fixture(tc_math, &setup, &teardown);
 
 	suite_add_tcase(s, tc_access);
 	suite_add_tcase(s, tc_create);
