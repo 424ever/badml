@@ -1,5 +1,5 @@
 badml
-===--
+=====
 
 The Bad Matrix Library - an unopimized library for Vectors and Matrices with an
 API similar to GSL.
@@ -28,3 +28,11 @@ To tun the test suite and show code coverage
  $ ./configure --enable-code-coverage
  $ make check-code-coverage
 
+Setting up LSP
+--------------
+
+clangd and clang-tidy required a database with every file and it's compilation
+flags to provide usefull diagnostics. Such a database can be generated using a
+tool like bear(https://github.com/rizsotto/Bear) from a clean state:
+
+ $ bear -- make
