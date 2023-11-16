@@ -21,6 +21,8 @@ void	      bml_vector_set(struct bml_vector *, size_t i, double);
 double	      bml_vector_get(struct bml_vector *, size_t i);
 double	     *bml_vector_ptr(struct bml_vector *, size_t i);
 const double *bml_vector_const_ptr(struct bml_vector *, size_t i);
+int	      bml_vector_eq(struct bml_vector *, struct bml_vector *);
+int bml_vector_eq_tol(struct bml_vector *, struct bml_vector *, double tol);
 
 /* initialization */
 void bml_vector_set_all(struct bml_vector *, double);

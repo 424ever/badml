@@ -338,6 +338,57 @@ START_TEST(test_dot_product_fail)
 }
 END_TEST
 
+START_TEST(test_eq)
+{
+	double		   arr1[3] = {1.0, 2.0, 3.0};	   /* NOLINT */
+	double		   arr2[3] = {1.0, 2.0, 3.0};	   /* NOLINT */
+	double		   arr3[4] = {1.0, 2.0, 3.0, 4.0}; /* NOLINT */
+	struct bml_vector *vec1;
+	struct bml_vector *vec2;
+	struct bml_vector *vec3;
+
+	vec1 = bml_vector_from_array(arr1, 3);
+	vec2 = bml_vector_from_array(arr2, 3);
+	vec3 = bml_vector_from_array(arr3, 4);
+
+	ck_assert(bml_vector_eq(vec1, vec2));
+	ck_assert(!bml_vector_eq(vec1, vec3));
+	bml_vector_set(vec1, 0, 1.00001); /* NOLINT */
+	ck_assert(!bml_vector_eq(vec1, vec2));
+
+	bml_vector_free(vec1);
+	bml_vector_free(vec2);
+	bml_vector_free(vec3);
+
+	ck_assert_int_eq(errcount, 0);
+}
+END_TEST
+
+START_TEST(test_eq_tol)
+{
+	double		   arr1[3] = {1.0, 2.0, 3.0};	   /* NOLINT */
+	double		   arr2[3] = {1.1, 1.8, 3.0};	   /* NOLINT */
+	double		   arr3[4] = {1.0, 2.0, 3.0, 4.0}; /* NOLINT */
+	struct bml_vector *vec1;
+	struct bml_vector *vec2;
+	struct bml_vector *vec3;
+
+	vec1 = bml_vector_from_array(arr1, 3);
+	vec2 = bml_vector_from_array(arr2, 3);
+	vec3 = bml_vector_from_array(arr3, 4);
+
+	ck_assert(!bml_vector_eq_tol(vec1, vec3, 10.0)); /* NOLINT */
+	ck_assert(bml_vector_eq_tol(vec1, vec2, 0.3));	 /* NOLINT */
+	ck_assert(!bml_vector_eq_tol(vec1, vec2, 0.1));	 /* NOLINT */
+
+	bml_vector_free(vec1);
+	bml_vector_free(vec2);
+	bml_vector_free(vec3);
+
+	ck_assert_int_eq(errcount, 0);
+}
+END_TEST
+
 Suite *vector_suite(void)
 {
 	Suite *s;
@@ -369,6 +420,8 @@ Suite *vector_suite(void)
 
 	tcase_add_test(tc_access, test_const_ptr);
 	tcase_add_test(tc_access, test_const_ptr_oob);
+	tcase_add_test(tc_access, test_eq);
+	tcase_add_test(tc_access, test_eq_tol);
 	tcase_add_test(tc_access, test_get);
 	tcase_add_test(tc_access, test_get_oob);
 	tcase_add_test(tc_access, test_ptr);
