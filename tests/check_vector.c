@@ -389,6 +389,52 @@ START_TEST(test_eq_tol)
 }
 END_TEST
 
+START_TEST(test_cross_product)
+{
+	double		   arr1[] = {2.0, 3.0, 4.0};   /* NOLINT */
+	double		   arr2[] = {5.0, 6.0, 7.0};   /* NOLINT */
+	double		   exp[]  = {-3.0, 6.0, -3.0}; /* NOLINT */
+	struct bml_vector *vec1;
+	struct bml_vector *vec2;
+	struct bml_vector *expv;
+	struct bml_vector *res;
+
+	vec1 = bml_vector_from_array(arr1, 3);
+	vec2 = bml_vector_from_array(arr2, 3);
+	expv = bml_vector_from_array(exp, 3);
+
+	res = bml_vector_cross_product(vec1, vec2);
+
+	ck_assert(bml_vector_eq(expv, res));
+	ck_assert_int_eq(errcount, 0);
+
+	bml_vector_free(vec1);
+	bml_vector_free(vec2);
+	bml_vector_free(expv);
+	bml_vector_free(res);
+}
+END_TEST
+
+START_TEST(test_cross_product_fail)
+{
+	double		   arr1[] = {1.0, 3.0, 5.0};	  /* NOLINT */
+	double		   arr2[] = {2.0, 4.0, 6.0, 8.0}; /* NOLINT */
+	struct bml_vector *vec1;
+	struct bml_vector *vec2;
+
+	vec1 = bml_vector_from_array(arr1, 3);
+	vec2 = bml_vector_from_array(arr2, 4);
+
+	ck_assert_ptr_null(bml_vector_cross_product(vec1, vec2));
+	ck_assert_ptr_null(bml_vector_cross_product(vec2, vec1));
+	ck_assert_ptr_null(bml_vector_cross_product(vec2, vec2));
+	ck_assert_int_eq(errcount, 3);
+
+	bml_vector_free(vec1);
+	bml_vector_free(vec2);
+}
+END_TEST
+
 Suite *vector_suite(void)
 {
 	Suite *s;
@@ -441,6 +487,8 @@ Suite *vector_suite(void)
 	tcase_add_test(tc_init, test_set_zero);
 	tcase_add_test(tc_io, test_print);
 	tcase_add_test(tc_io, test_print_fail);
+	tcase_add_test(tc_math, test_cross_product);
+	tcase_add_test(tc_math, test_cross_product_fail);
 	tcase_add_test(tc_math, test_dot_product);
 	tcase_add_test(tc_math, test_dot_product_fail);
 
