@@ -48,12 +48,9 @@ static void fill_vec()
 
 START_TEST(test_alloc_fail)
 {
-	struct bml_vector *vec_fail;
-
-	vec_fail = bml_vector_alloc(ULONG_MAX);
-	ck_assert_ptr_null(vec_fail);
-	ck_assert_int_eq(errcount, 1);
-	bml_vector_free(vec_fail);
+	ck_assert_ptr_null(bml_vector_alloc(ULONG_MAX));
+	ck_assert_ptr_null(bml_vector_alloc(0));
+	ck_assert_int_eq(errcount, 2);
 }
 END_TEST
 

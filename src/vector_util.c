@@ -19,6 +19,12 @@ struct bml_vector *bml_vec_alloc_with_error(const char *fn, size_t n)
 {
 	struct bml_vector *vec;
 
+	if (!n)
+	{
+		bml_error(fn, "size is 0");
+		return NULL;
+	}
+
 	vec = bml_alloc(fn, 1, sizeof(*vec));
 	if (!vec)
 		return NULL;
