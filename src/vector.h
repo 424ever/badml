@@ -1,5 +1,5 @@
-#ifndef BML_SRC_BML_VECTOR_INT_H_
-#define BML_SRC_BML_VECTOR_INT_H_
+#ifndef BML_SRC_VECTOR_H_
+#define BML_SRC_VECTOR_H_
 
 #include <stdlib.h>
 
@@ -18,4 +18,4 @@ struct bml_vector *bml_vec_alloc_from_backing_copy(const char	*fn,
 						   const double *back,
 						   size_t	 n);
 
-#endif /* BML_SRC_BML_VECTOR_INT_H_ */
+#endif /* BML_SRC_VECTOR_H_ */
