@@ -22,13 +22,12 @@ check_error_LDADD = @CHECK_LIBS@ $(CODE_COVERAGE_LIBS)
 check_vector_SOURCES = check_vector.c                     \
 		       $(top_srcdir)/src/alloc.c          \
 		       $(top_srcdir)/src/error.c          \
-		       $(top_srcdir)/src/vector_access.c  \
-		       $(top_srcdir)/src/vector_create.c  \
-		       $(top_srcdir)/src/vector_destroy.c \
-		       $(top_srcdir)/src/vector_init.c    \
-		       $(top_srcdir)/src/vector_io.c      \
-		       $(top_srcdir)/src/vector_math.c    \
-		       $(top_srcdir)/src/vector_util.c    \
+		       $(top_srcdir)/src/vector/access.c  \
+		       $(top_srcdir)/src/vector/create.c  \
+		       $(top_srcdir)/src/vector/destroy.c \
+		       $(top_srcdir)/src/vector/init.c    \
+		       $(top_srcdir)/src/vector/io.c      \
+		       $(top_srcdir)/src/vector/math.c    \
 		       $(top_srcdir)/src/bml_vector.h
 
 check_vector_CFLAGS = @CHECK_CFLAGS@ $(AM_CFLAGS) $(CODE_COVERAGE_CFLAGS) -I$(top_srcdir)/src

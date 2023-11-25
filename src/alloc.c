@@ -4,7 +4,7 @@
 
 #include "alloc.h"
 #include "error.h"
-#include "vector.h"
+#include "vector/vector.h"
 
 void *bml_alloc(const char *fn, size_t nmemb, size_t size)
 {

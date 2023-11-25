@@ -19,8 +19,8 @@ config.status
 configure
 configure~
 libtool
-src/*.gcda
-src/*.gcno
+src/**/*.gcda
+src/**/*.gcno
 src/.deps
 src/.dirstamp
 src/.libs
@@ -42,3 +42,5 @@ tests/vgcore.*
 src/libbadml.la
 autoscan.log
 configure.scan
+src/vector/.deps
+src/vector/.dirstamp
