@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stddef.h>
 
-#include "bml_vector.h"
+#include "alloc.h"
 #include "error.h"
 #include "vector.h"
 
