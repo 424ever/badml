@@ -31,12 +31,14 @@ bml_err_handler_t *bml_get_err_handler(void)
 	return current_handler;
 }
 
+/* LCOV_EXCL_START */
 void bml_error_default_handler(const char *function, const char *reason)
 {
 	(void) fprintf(stderr, "Error while calling %s: %s\n", function,
 		       reason);
 	abort();
 }
+/* LCOV_EXCL_STOP */
 
 void bml_error_null_handler(const char *function, const char *reason)
 {
