@@ -1,16 +1,21 @@
+#include <assert.h>
 #include <math.h>
 #include <stddef.h>
 
 #include "alloc.h"
+#include "block.h"
+#include "bml_vector.h"
 #include "error.h"
 #include "vector.h"
 
 double bml_vector_dot_product(struct bml_vector *a, struct bml_vector *b)
 {
 	double sum;
+	double d1;
+	double d2;
 	size_t i;
 
-	if (a->size != b->size)
+	if (bml_vector_size(a) != bml_vector_size(b))
 	{
 		bml_error(__FUNCTION__, "different sizes");
 		return NAN;
@@ -18,8 +23,12 @@ double bml_vector_dot_product(struct bml_vector *a, struct bml_vector *b)
 
 	sum = 0.0;
 
-	for (i = 0; i < a->size; ++i)
-		sum += a->buf[i] * b->buf[i];
+	for (i = 0; i < bml_vector_size(a); ++i)
+	{
+		d1 = bml_block_must_get(a->b, i);
+		d2 = bml_block_must_get(b->b, i);
+		sum += d1 * d2;
+	}
 
 	return sum;
 }
@@ -29,13 +38,13 @@ struct bml_vector *bml_vector_cross_product(struct bml_vector *a,
 {
 	struct bml_vector *vec;
 
-	if (a->size != 3)
+	if (bml_vector_size(a) != 3)
 	{
 		bml_error(__FUNCTION__, "a's size is not 3");
 		return NULL;
 	}
 
-	if (b->size != 3)
+	if (bml_vector_size(b) != 3)
 	{
 		bml_error(__FUNCTION__, "b's size is not 3");
 		return NULL;
@@ -45,9 +54,12 @@ struct bml_vector *bml_vector_cross_product(struct bml_vector *a,
 	if (!vec)
 		return NULL;
 
-	vec->buf[0] = a->buf[1] * b->buf[2] - a->buf[2] * b->buf[1];
-	vec->buf[1] = a->buf[2] * b->buf[0] - a->buf[0] * b->buf[2];
-	vec->buf[2] = a->buf[0] * b->buf[1] - a->buf[1] * b->buf[0];
+	vec->b->data[0] =
+	    a->b->data[1] * b->b->data[2] - a->b->data[2] * b->b->data[1];
+	vec->b->data[1] =
+	    a->b->data[2] * b->b->data[0] - a->b->data[0] * b->b->data[2];
+	vec->b->data[2] =
+	    a->b->data[0] * b->b->data[1] - a->b->data[1] * b->b->data[0];
 
 	return vec;
 }

@@ -235,16 +235,24 @@ START_TEST(test_from_array)
 	double		   arr[] = {1.0, 2.0, 3.0, 4.0}; /* NOLINT */
 	size_t		   i;
 	struct bml_vector *vec;
+	struct bml_vector *copy;
 
-	vec = bml_vector_from_array(arr, 4);
+	vec  = bml_vector_from_array(arr, 4);
+	copy = bml_vector_alloc_copy(vec);
 	ck_assert_ptr_eq(bml_vector_ptr(vec, 0), arr);
 	for (i = 0; i < 4; ++i)
 		ck_assert_double_eq(bml_vector_get(vec, i), arr[i]);
 	arr[0] = test_val_1;
 	ck_assert_double_eq(bml_vector_get(vec, 0), test_val_1);
+	ck_assert_double_eq(bml_vector_get(copy, 0), test_val_1);
 	bml_vector_set(vec, 1, test_val_2);
 	ck_assert_double_eq(arr[1], test_val_2);
+	ck_assert_double_eq(bml_vector_get(copy, 1), test_val_2);
+	bml_vector_set(copy, 0, test_val_1 + test_val_2);
+	ck_assert_double_eq(arr[0], test_val_1 + test_val_2);
+	ck_assert_double_eq(bml_vector_get(vec, 0), test_val_1 + test_val_2);
 	bml_vector_free(vec);
+	bml_vector_free(copy);
 }
 END_TEST
 

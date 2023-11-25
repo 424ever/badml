@@ -1,13 +1,10 @@
 #include <stdlib.h>
 
+#include "block.h"
 #include "vector.h"
 
 void bml_vector_free(struct bml_vector *vec)
 {
-	if (!vec)
-		return;
-
-	if (vec->owning)
-		free(vec->buf);
+	bml_block_free(vec->b);
 	free(vec);
 }

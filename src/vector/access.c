@@ -1,5 +1,7 @@
 #include <math.h>
 
+#include "block.h"
+#include "bml_vector.h"
 #include "error.h"
 #include "vector.h"
 
@@ -24,52 +26,41 @@ static int comp(comparfn *fn, struct bml_vector *a, struct bml_vector *b,
 {
 	size_t i;
 
-	if (a->size != b->size)
+	if (bml_vector_size(a) != bml_vector_size(b))
 		return 0;
 
-	for (i = 0; i < a->size; ++i)
+	for (i = 0; i < bml_vector_size(a); ++i)
 	{
-		if (!fn(a->buf[i], b->buf[i], data))
+		if (!fn(bml_vector_get(a, i), bml_vector_get(b, i), data))
 			return 0;
 	}
 
 	return 1;
 }
 
-static int bml_vec_bounds_valid(struct bml_vector *vec, size_t i,
-				const char *fn)
-{
-	if (i >= vec->size)
-	{
-		bml_error(fn, "out of bounds");
-		return 0;
-	}
-	return 1;
-}
-
 size_t bml_vector_size(struct bml_vector *vec)
 {
-	return vec->size;
+	return vec->b->size;
 }
 
 void bml_vector_set(struct bml_vector *vec, size_t i, double d)
 {
-	if (bml_vec_bounds_valid(vec, i, __FUNCTION__))
-		vec->buf[i] = d;
+	bml_block_set(__FUNCTION__, vec->b, d, i);
 }
 
 double bml_vector_get(struct bml_vector *vec, size_t i)
 {
-	if (bml_vec_bounds_valid(vec, i, __FUNCTION__))
-		return vec->buf[i];
-	return NAN;
+	double d;
+
+	if (!bml_block_get(__FUNCTION__, vec->b, &d, i))
+		return NAN;
+
+	return d;
 }
 
 double *bml_vector_ptr(struct bml_vector *vec, size_t i)
 {
-	if (bml_vec_bounds_valid(vec, i, __FUNCTION__))
-		return vec->buf + i;
-	return NULL;
+	return bml_block_ptr(__FUNCTION__, vec->b, i);
 }
 
 const double *bml_vector_const_ptr(struct bml_vector *vec, size_t i)

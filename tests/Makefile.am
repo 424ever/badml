@@ -21,6 +21,7 @@ check_error_LDADD = @CHECK_LIBS@ $(CODE_COVERAGE_LIBS)
 
 check_vector_SOURCES = check_vector.c                     \
 		       $(top_srcdir)/src/alloc.c          \
+		       $(top_srcdir)/src/block.c          \
 		       $(top_srcdir)/src/error.c          \
 		       $(top_srcdir)/src/vector/access.c  \
 		       $(top_srcdir)/src/vector/create.c  \

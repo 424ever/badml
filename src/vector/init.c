@@ -1,5 +1,7 @@
+#include <assert.h>
 #include <stdlib.h>
 
+#include "block.h"
 #include "bml_vector.h"
 #include "error.h"
 #include "vector.h"
@@ -8,8 +10,8 @@ void bml_vector_set_all(struct bml_vector *vec, double d)
 {
 	size_t i;
 
-	for (i = 0; i < vec->size; ++i)
-		vec->buf[i] = d;
+	for (i = 0; i < bml_vector_size(vec); ++i)
+		bml_block_must_set(vec->b, d, i);
 }
 
 void bml_vector_set_zero(struct bml_vector *vec)
@@ -20,19 +22,16 @@ void bml_vector_set_zero(struct bml_vector *vec)
 void bml_vector_set_basis(struct bml_vector *vec, size_t i)
 {
 	bml_vector_set_zero(vec);
-	vec->buf[i] = 1.0;
+	bml_block_set(__FUNCTION__, vec->b, 1.0, i);
 }
 
 void bml_vector_copy(struct bml_vector *to, struct bml_vector *from)
 {
-	size_t i;
-
-	if (to->size != from->size)
+	if (bml_vector_size(to) != bml_vector_size(from))
 	{
 		bml_error(__FUNCTION__, "different sizes");
 		return;
 	}
 
-	for (i = 0; i < from->size; ++i)
-		to->buf[i] = from->buf[i];
+	bml_block_copy_buf(to->b, from->b->data);
 }
