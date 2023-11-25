@@ -114,7 +114,7 @@ int bml_block_get(const char *fn, struct bml_block *b, double *d, size_t i)
 double bml_block_must_get(struct bml_block *b, size_t i)
 {
 	if (!check_index(__FUNCTION__, b, i))
-		abort();
+		abort(); /* LCOV_EXCL_LINE */
 
 	return b->data[i];
 }
@@ -132,7 +132,7 @@ int bml_block_set(const char *fn, struct bml_block *b, double d, size_t i)
 void bml_block_must_set(struct bml_block *b, double d, size_t i)
 {
 	if (!check_index(__FUNCTION__, b, i))
-		abort();
+		abort(); /* LCOV_EXCL_LINE */
 
 	b->data[i] = d;
 }
