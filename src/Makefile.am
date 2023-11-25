@@ -4,6 +4,8 @@ lib_LTLIBRARIES = libbadml.la
 
 libbadml_la_SOURCES = alloc.c          \
 		      alloc.h          \
+		      block.c          \
+		      block.h          \
 		      bml_error.h      \
 		      bml_vector.h     \
 		      error.c          \
