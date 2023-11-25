@@ -1,5 +1,6 @@
 #include <math.h>
 
+#include "error.h"
 #include "vector.h"
 
 typedef int(comparfn)(double, double, void *);
@@ -32,6 +33,17 @@ static int comp(comparfn *fn, struct bml_vector *a, struct bml_vector *b,
 			return 0;
 	}
 
+	return 1;
+}
+
+static int bml_vec_bounds_valid(struct bml_vector *vec, size_t i,
+				const char *fn)
+{
+	if (i >= vec->size)
+	{
+		bml_error(fn, "out of bounds");
+		return 0;
+	}
 	return 1;
 }
 

@@ -14,8 +14,7 @@ libbadml_la_SOURCES = alloc.c          \
 		      vector_destroy.c \
 		      vector_init.c    \
 		      vector_io.c      \
-		      vector_math.c    \
-		      vector_util.c
+		      vector_math.c 
 
 include_HEADERS = bml_error.h  \
 		  bml_vector.h
