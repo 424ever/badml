@@ -1,10 +1,15 @@
+#include <err.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "alloc.h"
 #include "block.h"
 #include "error.h"
 
-#define REASON_BUFSIZ 128
+enum
+{
+	REASON_BUFSIZ = 128,
+};
 
 struct bml_block *bml_block_alloc(const char *fn, size_t n)
 {
@@ -82,7 +87,7 @@ void bml_block_free(struct bml_block *b)
 	free(b);
 }
 
-int bml_block_get(const char *fn, struct bml_block *b, double *d, size_t i)
+static int check_index(const char *fn, struct bml_block *b, size_t i)
 {
 	static char reason[REASON_BUFSIZ];
 
@@ -93,8 +98,49 @@ int bml_block_get(const char *fn, struct bml_block *b, double *d, size_t i)
 		bml_error(fn, reason);
 		return 0;
 	}
+	return 1;
+}
+
+int bml_block_get(const char *fn, struct bml_block *b, double *d, size_t i)
+{
+	if (!check_index(fn, b, i))
+		return 0;
 
 	*d = b->data[i];
 
 	return 1;
+}
+
+double bml_block_must_get(struct bml_block *b, size_t i)
+{
+	if (!check_index(__FUNCTION__, b, i))
+		abort();
+
+	return b->data[i];
+}
+
+int bml_block_set(const char *fn, struct bml_block *b, double d, size_t i)
+{
+	if (!check_index(fn, b, i))
+		return 0;
+
+	b->data[i] = d;
+
+	return 1;
+}
+
+void bml_block_must_set(struct bml_block *b, double d, size_t i)
+{
+	if (!check_index(__FUNCTION__, b, i))
+		abort();
+
+	b->data[i] = d;
+}
+
+double *bml_block_ptr(const char *fn, struct bml_block *b, size_t i)
+{
+	if (!check_index(fn, b, i))
+		return NULL;
+
+	return b->data + i;
 }

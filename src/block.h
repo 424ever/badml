@@ -18,6 +18,18 @@ void		  bml_block_free(struct bml_block *);
  * on success, return 1 and store the value in *d
  * on failure, return 0 and call the error handler
  */
-int bml_block_get(const char *fn, struct bml_block *, double *d, size_t i);
+int    bml_block_get(const char *fn, struct bml_block *, double *d, size_t i);
+double bml_block_must_get(struct bml_block *b, size_t i);
+/* set an item in a block
+ * on success, return 1 and set the value at i to d
+ * on failure, return 0 and call the error handler
+ */
+int  bml_block_set(const char *fn, struct bml_block *, double d, size_t i);
+void bml_block_must_set(struct bml_block *, double d, size_t i);
+/* get a pointer to the ith element in block
+ * on success, return the pointer
+ * on failure, call the error handler and return NULL
+ */
+double *bml_block_ptr(const char *fn, struct bml_block *, size_t i);
 
 #endif /* BML_SRC_BLOCK_BLOCK_H_ */

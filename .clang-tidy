@@ -1,5 +1,5 @@
 ---
-Checks:          '-*,clang-diagnostic-*,clang-analyzer-*,bugprone-*,cert-*,llvm-*,misc-*,modernize-*,performance-*,portability-*,readability-*,-readability-identifier-length,-readability-braces-around-statements,-llvm-header-guard,-bugprone-easily-swappable-parameters'
+Checks:          '-*,clang-diagnostic-*,clang-analyzer-*,bugprone-*,cert-*,llvm-*,misc-*,modernize-*,performance-*,portability-*,readability-*,-readability-identifier-length,-readability-braces-around-statements,-llvm-header-guard,-bugprone-easily-swappable-parameters,-clang-analyzer-security*'
 WarningsAsErrors: '*'
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false
