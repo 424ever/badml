@@ -44,3 +44,5 @@ autoscan.log
 configure.scan
 src/vector/.deps
 src/vector/.dirstamp
+src/matrix/.deps
+src/matrix/.dirstamp
