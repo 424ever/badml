@@ -89,13 +89,9 @@ void bml_block_free(struct bml_block *b)
 
 static int check_index(const char *fn, const struct bml_block *b, size_t i)
 {
-	static char reason[REASON_BUFSIZ];
-
 	if (i >= b->size)
 	{
-		(void) snprintf(reason, REASON_BUFSIZ,
-				"index %zu out of bounds", i);
-		bml_error(fn, reason);
+		bml_format_error(fn, "index %zu out of bounds", i);
 		return 0;
 	}
 	return 1;

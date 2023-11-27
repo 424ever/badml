@@ -1,8 +1,14 @@
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "bml_error.h"
 #include "error.h"
+
+enum
+{
+	REASON_BUFSIZ = 128,
+};
 
 static bml_err_handler_t *current_handler = &bml_error_default_handler;
 
@@ -49,4 +55,15 @@ void bml_error_null_handler(const char *function, const char *reason)
 void bml_error(const char *function, const char *reason)
 {
 	current_handler(function, reason);
+}
+
+void bml_format_error(const char *function, const char *reason_fmt, ...)
+{
+	static char reason[REASON_BUFSIZ];
+	va_list	    ap;
+
+	va_start(ap, reason_fmt);
+	(void) vsnprintf(reason, REASON_BUFSIZ, reason_fmt, ap);
+	bml_error(function, reason);
+	va_end(ap);
 }
