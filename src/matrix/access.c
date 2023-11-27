@@ -5,8 +5,8 @@
 #include "error.h"
 #include "matrix.h"
 
-static int bml_matrix_rangecheck(const char *fn, struct bml_matrix *m, size_t i,
-				 size_t j)
+static int bml_matrix_rangecheck(const char *fn, const struct bml_matrix *m,
+				 size_t i, size_t j)
 {
 	if (i >= m->dim.rows || j >= m->dim.cols)
 	{
@@ -17,7 +17,7 @@ static int bml_matrix_rangecheck(const char *fn, struct bml_matrix *m, size_t i,
 	return 1;
 }
 
-double bml_matrix_get(struct bml_matrix *m, size_t i, size_t j)
+double bml_matrix_get(const struct bml_matrix *m, size_t i, size_t j)
 {
 	double d;
 	size_t idx;
@@ -55,7 +55,8 @@ double *bml_matrix_ptr(struct bml_matrix *m, size_t i, size_t j)
 	return bml_block_ptr(__FUNCTION__, m->b, idx);
 }
 
-const double *bml_matrix_const_ptr(struct bml_matrix *m, size_t i, size_t j)
+const double *bml_matrix_const_ptr(const struct bml_matrix *m, size_t i,
+				   size_t j)
 {
 	size_t idx;
 
@@ -67,7 +68,7 @@ const double *bml_matrix_const_ptr(struct bml_matrix *m, size_t i, size_t j)
 	return bml_block_ptr(__FUNCTION__, m->b, idx);
 }
 
-size_t bml_matrix_dim_idx_to_offset(struct bml_matrix_dim dim, size_t i,
+size_t bml_matrix_dim_idx_to_offset(const struct bml_matrix_dim dim, size_t i,
 				    size_t j)
 {
 	return i * dim.cols + j;
