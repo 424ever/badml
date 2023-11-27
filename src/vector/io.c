@@ -5,7 +5,7 @@
 #include "error.h"
 #include "vector.h"
 
-int bml_vector_print(FILE *f, struct bml_vector *vec, const char *format)
+int bml_vector_print(FILE *f, const struct bml_vector *vec, const char *format)
 {
 	int    count;
 	int    ret;

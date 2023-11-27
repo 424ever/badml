@@ -6,7 +6,8 @@
 #include "error.h"
 #include "vector.h"
 
-double bml_vector_dot_product(struct bml_vector *a, struct bml_vector *b)
+double bml_vector_dot_product(const struct bml_vector *a,
+			      const struct bml_vector *b)
 {
 	double sum;
 	double d1;
@@ -31,8 +32,8 @@ double bml_vector_dot_product(struct bml_vector *a, struct bml_vector *b)
 	return sum;
 }
 
-struct bml_vector *bml_vector_cross_product(struct bml_vector *a,
-					    struct bml_vector *b)
+struct bml_vector *bml_vector_cross_product(const struct bml_vector *a,
+					    const struct bml_vector *b)
 {
 	struct bml_vector *vec;
 

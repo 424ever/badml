@@ -20,8 +20,8 @@ static int compare_tol(double a, double b, void *data)
 	return fabs(b - a) <= tol;
 }
 
-static int comp(comparfn *fn, struct bml_vector *a, struct bml_vector *b,
-		void *data)
+static int comp(comparfn *fn, const struct bml_vector *a,
+		const struct bml_vector *b, void *data)
 {
 	size_t i;
 
@@ -37,7 +37,7 @@ static int comp(comparfn *fn, struct bml_vector *a, struct bml_vector *b,
 	return 1;
 }
 
-size_t bml_vector_size(struct bml_vector *vec)
+size_t bml_vector_size(const struct bml_vector *vec)
 {
 	return vec->b->size;
 }
@@ -47,7 +47,7 @@ void bml_vector_set(struct bml_vector *vec, size_t i, double d)
 	bml_block_set(__FUNCTION__, vec->b, d, i);
 }
 
-double bml_vector_get(struct bml_vector *vec, size_t i)
+double bml_vector_get(const struct bml_vector *vec, size_t i)
 {
 	double d;
 
@@ -62,17 +62,18 @@ double *bml_vector_ptr(struct bml_vector *vec, size_t i)
 	return bml_block_ptr(__FUNCTION__, vec->b, i);
 }
 
-const double *bml_vector_const_ptr(struct bml_vector *vec, size_t i)
+const double *bml_vector_const_ptr(const struct bml_vector *vec, size_t i)
 {
-	return bml_vector_ptr(vec, i);
+	return bml_block_ptr(__FUNCTION__, vec->b, i);
 }
 
-int bml_vector_eq(struct bml_vector *a, struct bml_vector *b)
+int bml_vector_eq(const struct bml_vector *a, const struct bml_vector *b)
 {
 	return comp(&compare_exact, a, b, NULL);
 }
 
-int bml_vector_eq_tol(struct bml_vector *a, struct bml_vector *b, double tol)
+int bml_vector_eq_tol(const struct bml_vector *a, const struct bml_vector *b,
+		      double tol)
 {
 	return comp(&compare_tol, a, b, &tol);
 }

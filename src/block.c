@@ -87,7 +87,7 @@ void bml_block_free(struct bml_block *b)
 	free(b);
 }
 
-static int check_index(const char *fn, struct bml_block *b, size_t i)
+static int check_index(const char *fn, const struct bml_block *b, size_t i)
 {
 	static char reason[REASON_BUFSIZ];
 
@@ -101,7 +101,8 @@ static int check_index(const char *fn, struct bml_block *b, size_t i)
 	return 1;
 }
 
-int bml_block_get(const char *fn, struct bml_block *b, double *d, size_t i)
+int bml_block_get(const char *fn, const struct bml_block *b, double *d,
+		  size_t i)
 {
 	if (!check_index(fn, b, i))
 		return 0;
@@ -111,7 +112,7 @@ int bml_block_get(const char *fn, struct bml_block *b, double *d, size_t i)
 	return 1;
 }
 
-double bml_block_must_get(struct bml_block *b, size_t i)
+double bml_block_must_get(const struct bml_block *b, size_t i)
 {
 	if (!check_index(__FUNCTION__, b, i))
 		abort(); /* LCOV_EXCL_LINE */
