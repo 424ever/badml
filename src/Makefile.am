@@ -7,9 +7,13 @@ libbadml_la_SOURCES = alloc.c          \
 		      block.c          \
 		      block.h          \
 		      bml_error.h      \
+		      bml_matrix.h     \
 		      bml_vector.h     \
 		      error.c          \
 		      error.h          \
+		      matrix/matrix.h  \
+		      matrix/access.c  \
+		      matrix/create.c  \
 		      vector/vector.h  \
 		      vector/access.c  \
 		      vector/create.c  \
@@ -19,6 +23,7 @@ libbadml_la_SOURCES = alloc.c          \
 		      vector/math.c 
 
 include_HEADERS = bml_error.h  \
+		  bml_matrix.h \
 		  bml_vector.h
 
 lint: $(libbadml_la_SOURCES)
