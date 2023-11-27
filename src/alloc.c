@@ -1,10 +1,8 @@
-#include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "alloc.h"
 #include "error.h"
-#include "vector/vector.h"
 
 void *bml_alloc(const char *fn, size_t nmemb, size_t size)
 {

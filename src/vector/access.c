@@ -2,7 +2,6 @@
 
 #include "block.h"
 #include "bml_vector.h"
-#include "error.h"
 #include "vector.h"
 
 typedef int(comparfn)(double, double, void *);

@@ -1,6 +1,5 @@
 #include "alloc.h"
 #include "block.h"
-#include "error.h"
 #include "vector.h"
 
 struct bml_vector *bml_vec_alloc_with_error(const char *fn, size_t n)

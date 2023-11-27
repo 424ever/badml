@@ -1,8 +1,6 @@
-#include <assert.h>
 #include <math.h>
 #include <stddef.h>
 
-#include "alloc.h"
 #include "block.h"
 #include "bml_vector.h"
 #include "error.h"

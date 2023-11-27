@@ -2,7 +2,6 @@
 #define BML_SRC_BML_VECTOR_H_
 
 #include <stdio.h>
-#include <stdlib.h>
 
 struct bml_vector;
 
